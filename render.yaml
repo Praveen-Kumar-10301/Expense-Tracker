@@ -1,0 +1,21 @@
+# Render Blueprint — one web service that serves the React build + the API.
+# Deploy: push this repo to GitHub, then in Render: New + → Blueprint → pick the repo.
+# After the first deploy, set the secret env vars in the dashboard (see deploy guide).
+services:
+  - type: web
+    name: expense-tracker
+    runtime: node
+    plan: free
+    buildCommand: npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: JWT_SECRET
+        generateValue: true        # Render generates a strong secret on first deploy
+      - key: TURSO_DATABASE_URL
+        sync: false                # set in dashboard (from Turso)
+      - key: TURSO_AUTH_TOKEN
+        sync: false                # set in dashboard (from Turso)
+      # CLIENT_URL is optional for the single-origin setup; set it to your
+      # Render URL if you later split the frontend onto a different host.
