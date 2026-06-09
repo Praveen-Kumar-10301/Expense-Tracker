@@ -152,3 +152,6 @@ changes are needed.
 - **First request is slow:** expected on Render free (cold start after idle). Upgrade to a
   paid instance to keep it always-on.
 - **Want to inspect the DB:** `turso db shell expense-tracker` then run SQL.
+- **Build fails with `vite: not found`:** Vite is a devDependency, and `NODE_ENV=production`
+  makes `npm install` skip devDependencies. The build script installs the client with
+  `--include=dev` to fix this — make sure you're on the latest commit.
